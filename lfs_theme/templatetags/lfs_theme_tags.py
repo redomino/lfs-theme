@@ -9,6 +9,7 @@ from portlets.models import Slot
 
 # lfs imports
 import lfs.core.utils
+from lfs.catalog.models import Category
 
 register = Library()
 
@@ -40,11 +41,11 @@ class SlotsInformationNode(Node):
         if content_class is None:
             content_class = "span-24 last"
             if context.get("SlotLeft", None) and context.get("SlotRight", None):
-                content_class = "span-15 padding-both"
+                content_class = "span9 padding-both"
             elif context.get("SlotLeft", None):
-                content_class = "span-19 padding-left last"
+                content_class = "span9 padding-left last"
             elif context.get("SlotRight", None):
-                content_class = "span-20 padding-right"
+                content_class = "span9 padding-right"
 
             cache.set(cache_key, content_class)
 
@@ -80,3 +81,31 @@ def email_text_footer(context):
     return {
         "shop": shop
     }
+
+@register.inclusion_tag('lfs/catalog/top_level_categories.html', takes_context=True)
+def menu_top_level_categories(context):
+    """Displays the top level categories.
+    """
+    request = context.get("request")
+    obj = context.get("product") or context.get("category")
+
+    categories = []
+    top_category = lfs.catalog.utils.get_current_top_category(request, obj)
+
+    for category in Category.objects.filter(parent=None):
+
+        if top_category:
+            current = top_category.id == category.id
+        else:
+            current = False
+
+        categories.append({
+            "url": category.get_absolute_url(),
+            "name": category.name,
+            "current": current,
+        })
+
+    return {
+        "categories": categories,
+    }
+       
