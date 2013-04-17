@@ -1,0 +1,23 @@
+body {
+    padding-top: 20px;
+}
+
+.footer {
+    padding-top: 40px;
+}
+
+.well {
+    padding: 8px 0;
+}
+
+.header .search {
+    text-align: center;
+}
+
+.header .row-fluid {
+    margin-top: 10px;
+}
+
+body.product .product-images {
+    margin-left: 0;
+}
