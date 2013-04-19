@@ -18,17 +18,21 @@
 </div>
 
 <div id="products">
-    <table class="lfs-default container">
+    <div class="lfs-default row-fluid">
         {% for col in products %}
-        <tr class="product-row row-fluid">
+        <ul class="product-row thumbnails clearfix">
             {% for product in col %}
-                <td class="product-data span{% widthratio 12 col|length 1 %}"
+                <li class="product-data span{% widthratio 12 col|length 1 %}"
                     onclick="window.location='{% url lfs.catalog.views.product_view product.slug %}'">
-                    <div class="thumbnail">
-                            {% if product.image.url_300x300 %}
-                                <img alt="{{ product.name }}"
-                                     src="{{ product.image.url_300x300 }}" />
-                            {% endif %}
+                    <div >
+                        <div class="thumbnailzz">
+                            <a href="{% url lfs.catalog.views.product_view product.slug %}">
+                                {% if product.image.url_300x300 %}
+                                    <img alt="{{ product.name }}" class="img-rounded"
+                                         src="{{ product.image.url_300x300 }}" />
+                               {% endif %}
+                            </a>
+                        </div>
                         <div class="caption">
                             <h3 class="product-title">
                                 <a href="{% url lfs.catalog.views.product_view product.slug %}">
@@ -37,49 +41,52 @@
                             </h3>
                             <div class="product-description">{{ product.obj.get_short_description|safe }}</div>
 
-                    {% category_product_prices_gross product.obj.id %}
-
-                    <div class="product-price">
-                        {% if price_starting_from %}
-                            {% trans "Starting at" %}
-                        {% endif %}
-                        {% if product.obj.get_for_sale %}
-                           <span class="for-sale-standard-price">{{ standard_price|currency:request }}*</span>
-                           <span class="for-sale-price">{{ price|currency:request }}*</span>
-                        {% else %}
-                            <span class="standard-price">{{ price|currency:request }}*</span>
-                        {% endif %}
-                        {% if product.price_unit %}
-                            / {{ product.price_unit }}
-                        {% endif %}
-                        {% if product.obj.get_active_packing_unit %}
-                            <div class="base-price">
-                                {{ base_packing_price|currency:request }}* / {{ product.obj.get_packing_info.1 }}
-                            </div>
-                        {% endif %}
-                        {% if product.obj.get_active_base_price %}
-                            <div class="base-price">
-                                {% if base_price_starting_from %}
+                            {% category_product_prices_gross product.obj.id %}
+         
+                            <div class="product-price">
+                                {% if price_starting_from %}
                                     {% trans "Starting at" %}
                                 {% endif %}
-                                {{ base_price|currency:request }}*
-                                {% if product.obj.get_base_price_unit %}
-                                    / {{ product.obj.get_base_price_unit }}
+                                {% if product.obj.get_for_sale %}
+                                   <span class="for-sale-standard-price">{{ standard_price|currency:request }}*</span>
+                                   <span class="for-sale-price">{{ price|currency:request }}*</span>
+                                {% else %}
+                                   <span class="standard-price">{{ price|currency:request }}*</span>
                                 {% endif %}
+                                {% if product.price_unit %}
+                                    / {{ product.price_unit }}
+                                {% endif %}
+                                {% if product.obj.get_active_packing_unit %}
+                                    <div class="base-price">
+                                        {{ base_packing_price|currency:request }}* / {{ product.obj.get_packing_info.1 }}
+                                    </div>
+                                {% endif %}
+                                {% if product.obj.get_active_base_price %}
+                                    <div class="base-price">
+                                        {% if base_price_starting_from %}
+                                            {% trans "Starting at" %}
+                                        {% endif %}
+                                        {{ base_price|currency:request }}*
+                                        {% if product.obj.get_base_price_unit %}
+                                            / {{ product.obj.get_base_price_unit }}
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                                <div class="price-disclaimer">
+                                    {% if product.price_includes_tax %}
+                                        {% trans '*inc. VAT' %}
+                                    {% else  %}
+                                        {% trans '*exc. VAT' %}
+                                   {% endif %}
+                                </div>
                             </div>
-                        {% endif %}
-                        <div class="price-disclaimer">
-                            {% if product.price_includes_tax %}
-                                {% trans '*inc. VAT' %}
-                            {% else  %}
-                                {% trans '*exc. VAT' %}
-                            {% endif %}
                         </div>
+
+
                     </div>
-                    </div>
-                </td>
+                </li>
             {% endfor %}
-        </tr>
+        </ul>
         {% endfor %}
-    </table>
+    </div>
 </div>

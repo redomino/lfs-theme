@@ -13,11 +13,11 @@
 {% endblock %}
 
 {% block wrapper %}
-    <h1>
+    <h1 class="">
         {% trans 'Please select!' %}
     </h1>
-
-    <div class="login">
+    <div class="container">
+    <div class="login span6">
         <h2 class="authenticate">{% trans 'Login' %}</h2>
 
         <div class="description">
@@ -31,7 +31,7 @@
 
             <div class="form-wrapper">
                 <div class="form">
-                    {% lfs_form login_form %}
+                    {{ login_form }}
                 </div>
             </div>
 
@@ -50,7 +50,7 @@
     </div>
 
     {% if not ANON_ONLY %}
-        <div class="register">
+        <div class="register span6">
             <h2 class="authenticate">{% trans 'Register' %}</h2>
 
             <div class="description">
@@ -62,7 +62,7 @@
                     {% csrf_token %}
                     <div class="form-wrapper">
                         <div class="form">
-                            {% lfs_form register_form %}
+                            {{ register_form }}
                         </div>
                     </div>
                     <input type="hidden"
@@ -78,6 +78,7 @@
             </form>
         </div>
     {% endif %}
+    </div>
 <script type="text/javascript">
 $("#id_username").focus();
 </script>

@@ -3,7 +3,7 @@
 {% load lfs_tags %}
 
 {% block wrapper %}
-    <div class="span-5">
+    <div class="span3">
         {% block left-slot %}
             <h1>{% trans 'My account' %}</h1>
             <ul class="navigation-body">
@@ -25,7 +25,7 @@
             </ul>
         {% endblock %}
     </div>
-    <div class="span-19 last">
+    <div class="span9 last">
         {% block content %}{% endblock %}
     </div>
 {% endblock %}

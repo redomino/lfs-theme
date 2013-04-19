@@ -18,7 +18,7 @@
 {% endif %}
 
 <h2>{% trans 'Your cart' %}</h2>
-<table class="lfs-default cart">
+<table class="lfs-default cart table">
     <thead>
         <tr>
             <th colspan="2">
@@ -28,10 +28,10 @@
                 colspan="2">
                 {% trans 'Amount' %}
             </th>
-            <th class="number">
+            <th class="number hidden-phone">
                 {% trans 'Net Price' %}
             </th>
-            <th class="number">
+            <th class="number hidden-phone">
                 {% trans 'VAT' %}
             </th>
             <th class="number">
@@ -43,7 +43,7 @@
         {% for cart_item in cart_items %}
             <tr>
                 <td class="image">
-                    <a href="{{ cart_item.product.get_absolute_url }}">
+                    <a href="{{ cart_item.product.get_absolute_url }}" class="hidden-phone">
                         <img src="{{ cart_item.product.get_image.image.url_60x60 }}"
                              alt="{{ cart_item.product.get_name }}"/>
                     </a>
@@ -77,7 +77,7 @@
                 <td class="number">
                     {{ cart_item.quantity }}
                 </td>
-                <td class="padding-left">
+                <td class="padding-left hidden-phone">
                     {{ cart_item.product.get_unit }}
                     {% if cart_item.product.get_active_packing_unit %}
                         <span class="packing-unit">
@@ -85,7 +85,7 @@
                         </span>
                     {% endif %}
                 </td>
-                <td class="number">
+                <td class="number hidden-phone">
                     {{ cart_item.product_price_net|currency:request}}
                 </td>
                 <td class="number">

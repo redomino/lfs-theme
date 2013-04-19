@@ -14,7 +14,7 @@
 
         <div class="form-wrapper">
             <div class="form">
-                {% lfs_form email_form %}
+                {{ email_form }}
             </div>
         </div>
 
@@ -22,7 +22,7 @@
                name="action"
                value="email" />
 
-        <input class="lfs-default"
+        <input class="btn"
                type="submit"
                value="{% trans 'Save e-mail address' %}" />
 
